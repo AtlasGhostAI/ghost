@@ -1,0 +1,42 @@
+name = "atlas-ghost-api"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[vars]
+# Exact site origin(s), comma-separated, no trailing slash. REQUIRED — the API
+# refuses all analysis requests while this is empty or still a placeholder.
+ALLOWED_ORIGINS = "https://YOUR-SITE.pages.dev"
+# Hard ceiling on Helius calls per UTC day across all users (enforced by the
+# GLOBAL_QUOTA Durable Object below). Size this to your Helius credit plan.
+DAILY_PROVIDER_CALL_LIMIT = "500"
+# Seconds to cache a report per address at the edge (0 disables). Note: the
+# Cache API is a no-op on *.workers.dev; it takes effect on a custom domain.
+CACHE_TTL_SECONDS = "300"
+# Confirm against your Helius dashboard; overridable without a code change.
+HELIUS_API_HOST = "api-mainnet.helius-rpc.com"
+# "off" silences the minimal structured logs (which never include addresses/IPs).
+LOG_LEVEL = "info"
+
+# Secrets (set with `wrangler secret put NAME`, never in this file):
+#   HELIUS_API_KEY         required for live mode
+#   TURNSTILE_SECRET_KEY   optional; when set, every analysis needs a Turnstile token
+
+# Per-client limit (Cloudflare Rate Limiting binding; Wrangler >= 4.36).
+# Approximate and per-location, so it is paired with an in-isolate token
+# bucket and the global daily quota.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+  [ratelimits.simple]
+  limit = 5
+  period = 60
+
+# Strict global daily provider-call counter.
+[[durable_objects.bindings]]
+name = "GLOBAL_QUOTA"
+class_name = "DailyQuota"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["DailyQuota"]

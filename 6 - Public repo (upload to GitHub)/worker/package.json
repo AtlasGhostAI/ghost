@@ -1,0 +1,13 @@
+{
+  "name": "atlas-ghost-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "wrangler deploy --dry-run --outdir .wrangler-dry"
+  },
+  "devDependencies": {
+    "wrangler": "^4.36.0"
+  }
+}
