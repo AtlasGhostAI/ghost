@@ -82,7 +82,7 @@ button { cursor: pointer; }
 /* ---------- nav ---------- */
 .nav {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
-  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px;
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 16px;
   height: 72px; padding-inline: var(--gutter) max(20px, env(safe-area-inset-right, 0px));
   background: color-mix(in srgb, var(--ink) 86%, transparent); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
@@ -382,3 +382,30 @@ section[id], #top { scroll-margin-top: 88px; }
   .lab-sec { padding-top: 64px; }
 }
 .keep-case { text-transform: none !important; letter-spacing: .04em !important; }
+
+/* v0.5 coin check + transparency */
+.check-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 18px 0 14px; }
+.check-sym { font-family: var(--display); font-weight: 900; font-size: 34px; line-height: 1; }
+.check-name { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.verdict { font-size: 12px; letter-spacing: .14em; padding: 8px 12px; border: 1px solid; white-space: nowrap; }
+.verdict.bad { color: #ff8fa3; border-color: #ff8fa3; background: #ff8fa314; }
+.verdict.warn { color: #f5c451; border-color: #f5c451; background: #f5c45114; }
+.verdict.good { color: var(--cyan); border-color: var(--cyan); background: #64efdb14; }
+.check-flags { list-style: none; padding: 0; margin: 16px 0 6px; display: grid; gap: 8px; }
+.flag { display: flex; gap: 12px; align-items: baseline; padding: 12px 14px; border: 1px solid var(--line-2); line-height: 1.45; font-family: var(--body); font-size: 16px; letter-spacing: 0; text-transform: none; color: var(--text); }
+.flag > span { flex: none; width: 18px; text-align: center; font-weight: 700; }
+.flag.red { border-color: #ff8fa355; } .flag.red > span { color: #ff8fa3; }
+.flag.warn { border-color: #f5c45155; } .flag.warn > span { color: #f5c451; }
+.flag.ok > span { color: var(--cyan); }
+.check-actions { margin-top: 10px; }
+.stat.neg strong { color: #ff8fa3; } .stat.pos strong { color: var(--cyan); }
+.proof-rows { display: grid; margin: 16px 0; border-top: 1px solid var(--line-2); }
+.proof-row { display: flex; justify-content: space-between; gap: 16px; padding: 14px 2px; border-bottom: 1px solid var(--line-2); flex-wrap: wrap; }
+.proof-row > span.mono { color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.proof-row a { color: var(--cyan); }
+#check-form { flex-wrap: wrap; }
+#check-form .field { flex: 1 1 220px; }
+#check-form .btn { flex: 1 1 auto; width: auto; }
+.check-actions { flex-wrap: wrap; }
+.check-head > div { min-width: 0; }
+.check-sym { overflow-wrap: anywhere; }

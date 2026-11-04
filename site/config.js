@@ -10,4 +10,8 @@ window.ATLAS_CONFIG = {
   contractAddress: '',
   // Official X handle without @, e.g. 'ghostonsol'. Adds the nav link and the "Follow the ghost" button.
   xHandle: 'AtlasGhostAI',
+  // Transparency page: the public dev wallet address (posted at launch), a token-lock proof link, and creator-fee spending.
+  devWallet: '',
+  lockUrl: '',
+  feeLedger: [], // e.g. { date: '2026-11-05', item: 'DexScreener listing', sol: 3.1 }
 };

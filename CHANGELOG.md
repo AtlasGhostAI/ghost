@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0 — coin check + transparency
+
+- **Added** `GET /api/coin?mint=`: DexScreener market data + Solana RPC mint facts → factual flags (liquidity, 6h dumps, volume/liquidity ratio, holder concentration excluding the pool, mint/freeze authority, age, socials). 60s cache, own rate limit, origin-checked.
+- **Added** `GET /api/wallet?address=&mint=`: SOL + token balance for the transparency section.
+- **Added** site "Check a coin" section with shareable `?check=<mint>` links and copyable results.
+- **Added** "Nothing hidden" transparency section (CA, dev wallet, lock link, source, creator-fee ledger), driven by `config.js`.
+- **Changed** roadmap: coin check shipped early; GHOST alerts (Telegram) next. Removed the top tagline.
+
 ## 0.4.0 — the Lab: deep memory, parallel ghost, paper trading
 
 ### API (atlas-ghost-api)

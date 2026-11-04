@@ -22,7 +22,11 @@ This repo is public so anyone can check these claims:
 | Deep memory: up to 500 txs, habits by hour, hold time, flags | Beta | `worker/src/ledger.js` |
 | Parallel you: replay closed trades with rules switched on | Beta | `site/lab.js` |
 | Paper lab: $10K practice at live prices, lockable rules | Beta | `site/lab.js`, `site/lab-ui.js` |
-| GHOST check · Ghost pages · GHOST coach | Roadmap (Nov 23 · Nov 30 · Dec 14) | — |
+| Coin check: paste any CA → liquidity, dumps, wash-volume, holder concentration, mint/freeze authority | Live | `worker/src/coin.js`, `site/check-ui.js` |
+| Transparency: dev wallet, CA, lock, creator-fee ledger, read live | At launch | `site/check-ui.js` |
+| GHOST alerts · Ghost pages · GHOST coach | Roadmap (Nov 23 · Nov 30 · Dec 14) | — |
+
+**How coins are checked:** market data from DexScreener (liquidity, volume, price change, age, socials) plus on-chain facts from Solana RPC (mint and freeze authority, largest holders). The largest holder is usually the pool, so it's excluded from the holder number. Results are plain facts with a HIGH RISK / CAUTION / NO MAJOR FLAGS label. GHOST never calls a coin "safe".
 
 **How trades are rebuilt:** each swap is read from the wallet's own balance changes, then grouped into positions per token and quote (SOL, USDC, USDT) using average cost. Flags: flips under 10 minutes, buys within 15 minutes of a losing close, 3rd+ re-entries, buys over 2× your median size. Sells with no buy inside the window are excluded rather than guessed.
 
@@ -35,7 +39,7 @@ npm run test:smoke    # browser tests (Playwright)
 npm run serve         # site at http://localhost:8080
 ```
 
-API: `worker/` is a Cloudflare Worker. Copy `worker/.dev.vars.example` to `worker/.dev.vars`, add your own `HELIUS_API_KEY`, then `npx wrangler dev`.
+API: `worker/` is a Cloudflare Worker with `POST /api/analyze`, `GET /api/coin`, `GET /api/wallet`, `GET /api/price`, `GET /api/token`. Copy `worker/.dev.vars.example` to `worker/.dev.vars`, add your own `HELIUS_API_KEY`, then `npx wrangler dev`.
 
 ## Layout
 
