@@ -6,6 +6,8 @@
  *                    deep  → report + deep memory (paginated ledger, profile)
  * GET  /api/price?ids=mint1,mint2   → live USD prices (Paper Lab)
  * GET  /api/token?mint=…            → token symbol/name (Paper Lab)
+ * GET  /api/coin?mint=…             → GHOST coin check (factual risk flags)
+ * GET  /api/wallet?address=…&mint=… → SOL + token balance (transparency page)
  * GET  /health                      → {ok:true}
  *
  * The Helius key lives only in the HELIUS_API_KEY secret. It is never
@@ -21,6 +23,7 @@ import { BASE_HEADERS, parseOrigins, corsHeaders, json, isJsonContentType, readB
 import { TokenBucketLimiter, checkRateLimit } from './ratelimit.js';
 import { consumeDailyQuota } from './quota.js';
 import { verifyTurnstile } from './turnstile.js';
+import { fetchCoinRaw, analyzeCoin, fetchWalletBalances } from './coin.js';
 
 export const MAX_BODY_BYTES = 1024;
 const DEFAULT_HELIUS_HOST = 'api-mainnet.helius-rpc.com';
@@ -75,6 +78,7 @@ export function buildDeep(history, address, nowSec) {
 export function createWorker({
   bucket = new TokenBucketLimiter({ capacity: 10, refillPerSec: 10 / 60 }),
   priceBucket = new TokenBucketLimiter({ capacity: 40, refillPerSec: 40 / 60 }),
+  coinBucket = new TokenBucketLimiter({ capacity: 12, refillPerSec: 12 / 60 }),
   now = () => Date.now(),
 } = {}) {
   const edgeCache = ttl => (ttl > 0 && globalThis.caches && globalThis.caches.default) || null;
@@ -179,6 +183,33 @@ export function createWorker({
     return new Response(text, { status: 200, headers: { ...BASE_HEADERS, ...ch, 'X-Atlas-Cache': 'MISS' } });
   }
 
+  async function coinRoutes(request, env, ch, ctx, pathname, url) {
+    const rl = coinBucket.take(clientKey(request));
+    if (!rl.ok) return json({ error: 'Too many checks. Wait a minute and try again.' }, 429, { ...ch, 'Retry-After': String(rl.retryAfterSec) });
+    const isCoin = pathname === '/api/coin';
+    const addr = (url.searchParams.get(isCoin ? 'mint' : 'address') || '').trim();
+    if (!isValidSolanaAddress(addr)) return json({ error: isCoin ? 'Paste a valid token mint address (CA)' : 'Invalid wallet address' }, 400, ch);
+    const mint = isCoin ? addr : (url.searchParams.get('mint') || '').trim();
+    if (!isCoin && mint && !isValidSolanaAddress(mint)) return json({ error: 'Invalid token mint' }, 400, ch);
+    if (!isCoin && !env.HELIUS_API_KEY) return json({ error: 'Not configured' }, 503, ch);
+    const ttl = 60;
+    const cache = edgeCache(ttl);
+    const key = cache ? new Request(`https://cache.atlas-ghost.internal/v3/${isCoin ? 'coin/' + addr : 'wallet/' + addr + '/' + (mint || '-')}`) : null;
+    const hit = await cacheGet(cache, key);
+    if (hit) return new Response(hit.body, { status: 200, headers: { ...BASE_HEADERS, ...ch, 'X-Atlas-Cache': 'HIT' } });
+    let data;
+    try {
+      data = isCoin ? analyzeCoin(await fetchCoinRaw(env, addr), addr, now()) : await fetchWalletBalances(env, addr, mint || null);
+    } catch (e) {
+      log(env, 'coin_error', { status: e && e.status });
+      return json({ error: 'Chain data is unavailable right now. Try again in a minute.' }, 502, ch);
+    }
+    if (isCoin && !data.sources.market && !data.sources.chain) return json({ error: 'Couldn’t load data for that token right now. Try again in a minute.' }, 502, ch);
+    const text = JSON.stringify(data);
+    await cachePut(cache, key, text, ttl, ctx);
+    return new Response(text, { status: 200, headers: { ...BASE_HEADERS, ...ch, 'X-Atlas-Cache': 'MISS' } });
+  }
+
   return {
     async fetch(request, env, ctx) {
       const allowed = parseOrigins(env.ALLOWED_ORIGINS || env.ALLOWED_ORIGIN);
@@ -186,7 +217,7 @@ export function createWorker({
       const ch = corsHeaders(origin, allowed);
       const url = new URL(request.url);
       const { pathname } = url;
-      const routes = { '/api/analyze': 'POST', '/api/price': 'GET', '/api/token': 'GET' };
+      const routes = { '/api/analyze': 'POST', '/api/price': 'GET', '/api/token': 'GET', '/api/coin': 'GET', '/api/wallet': 'GET' };
 
       if (request.method === 'OPTIONS') {
         if (!routes[pathname] || !allowed.includes(origin)) return new Response(null, { status: 403, headers: { Vary: 'Origin' } });
@@ -206,6 +237,7 @@ export function createWorker({
       if (!allowed.includes(origin)) return json({ error: 'Origin not allowed' }, 403, ch);
       try {
         if (pathname === '/api/analyze') return await analyze(request, env, ch, ctx);
+        if (pathname === '/api/coin' || pathname === '/api/wallet') return await coinRoutes(request, env, ch, ctx, pathname, url);
         return await market(request, env, ch, ctx, pathname, url);
       } catch (e) {
         log(env, 'unhandled', { name: e && e.name });

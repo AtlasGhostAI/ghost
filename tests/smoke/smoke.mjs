@@ -43,7 +43,7 @@ const liveReport = {
   createdAt: '2026-10-26T00:00:00.000Z',
 };
 
-async function newPage(browser, { mobile = null, live = false, onApi = null } = {}) {
+async function newPage(browser, { mobile = null, live = false, onApi = null, config = null } = {}) {
   const ctx = await browser.newContext(mobile
     ? { viewport: mobile, isMobile: true, hasTouch: true, deviceScaleFactor: 2, acceptDownloads: true }
     : { viewport: { width: 1280, height: 900 }, acceptDownloads: true });
@@ -55,7 +55,7 @@ async function newPage(browser, { mobile = null, live = false, onApi = null } = 
   page.on('dialog', d => { problems.push('dialog: ' + d.message()); d.dismiss(); });
   page.on('request', r => { if (r.url().includes('/api/analyze')) apiCalls.push(r.postData()); });
   // Every test pins its own config (live or sample-only), whatever site/config.js ships with.
-  await page.route(/\/config\.js(\?.*)?$/, r => r.fulfill({ contentType: 'text/javascript', body: live ? liveConfig : offConfig }));
+  await page.route(/\/config\.js(\?.*)?$/, r => r.fulfill({ contentType: 'text/javascript', body: config || (live ? liveConfig : offConfig) }));
   if (onApi) await page.route(`${API}/**`, onApi);
   return { ctx, page, problems, apiCalls };
 }
@@ -296,6 +296,38 @@ try {
       await ctx.close();
     });
   }
+
+  await check('coin check (mocked): renders flags escaped, deep link auto-runs, transparency shows dev wallet', async () => {
+    const MINT = 'So11111111111111111111111111111111111111112';
+    const DEV = '86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY';
+    const coin = { v: 1, mint: MINT, token: { symbol: 'EVIL' + XSS, name: 'x' }, verdict: 'high-risk',
+      market: { marketCap: 1800, liquidityUsd: 2000, volume24h: 600000, ageHours: 3, change: { h6: -96 }, stage: 'graduated' },
+      holders: { top1Pct: 10, top10ExTop1Pct: 60 }, flags: [{ level: 'red', text: 'Down 96% in the last 6 hours ' + XSS }, { level: 'ok', text: 'Mint authority is off' }], counts: {}, sources: { market: true, chain: true } };
+    const cfg = `window.ATLAS_CONFIG = { apiBase: '${API}', turnstileSiteKey: '', contractAddress: '${MINT}', devWallet: '${DEV}', feeLedger: [{ date: '2026-11-04', item: 'DexScreener listing', sol: 3.1 }] };`;
+    const { page, ctx, problems } = await newPage(browser, { config: cfg, onApi: r => {
+      const u = r.request().url();
+      const body = u.includes('/api/coin') ? coin : u.includes('/api/wallet') ? { address: DEV, sol: 1.234, token: 50000000, mint: MINT } : {};
+      return r.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify(body) });
+    } });
+    await page.goto(BASE + '?check=' + MINT);
+    await page.waitForFunction(() => document.getElementById('check-badge').textContent === 'LIVE');
+    const flags = await page.$$eval('#check-flags li', els => els.map(e => e.className + '|' + e.textContent));
+    assert(flags.length === 2 && flags[0].startsWith('flag red') && flags[0].includes('<img'), 'flags not rendered as text: ' + flags);
+    assert(await page.evaluate(() => !window.__pwned), 'script executed');
+    assert((await page.textContent('#check-head')).includes('HIGH RISK'));
+    await page.click('#check-share');
+    const clip = await page.evaluate(() => navigator.clipboard.readText());
+    assert(clip.includes('atlasghost.xyz/?check=' + MINT) && clip.includes('HIGH RISK'), 'share text: ' + clip);
+    await page.waitForFunction(() => document.getElementById('proof-stats').textContent.includes('5.00%'));
+    assert((await page.textContent('#proof-ledger')).includes('DexScreener listing'));
+    assert(!(await page.$eval('#proof-roast', e => e.classList.contains('hidden'))), 'roast button hidden');
+    await page.click('#proof-roast');
+    assert((await page.inputValue('#wallet')) === DEV);
+    await page.locator('#check').screenshot({ path: path.join(OUT, 'coin-check.png') });
+    await page.locator('#proof').screenshot({ path: path.join(OUT, 'proof.png') });
+    assert(problems.length === 0, problems.join('\n'));
+    await ctx.close();
+  });
 
   await check('accessibility: no serious/critical axe violations (initial + rendered result)', async () => {
     const { page, ctx } = await newPage(browser);

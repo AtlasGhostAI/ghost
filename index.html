@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GHOST — your wallet has a ghost</title>
+  <meta name="description" content="Paste a public Solana wallet. GHOST counts what the chain shows and roasts it. Read-only: no wallet connect, no signing." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="GHOST" />
+  <meta property="og:description" content="Your wallet has a ghost. Free, read-only Solana wallet roasts with share cards." />
+  <meta property="og:image" content="https://atlasghost.xyz/og-card.png" />
+  <meta property="og:url" content="https://atlasghost.xyz/" />
+  <link rel="canonical" href="https://atlasghost.xyz/" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#07080b" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="./archivo-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="./styles.css?v=20261104a" />
+</head>
+<body>
+<a class="skip-link" href="#try">Skip to the roast</a>
+
+<header class="nav">
+  <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">GH</span> GHOST</a>
+  <nav class="nav-links mono" aria-label="Sections">
+    <a href="#how">HOW IT WORKS</a>
+    <a href="#check">CHECK A COIN</a>
+    <a href="#memory">THE LAB</a>
+    <a href="#ghosts">THE GHOSTS</a>
+    <a href="#roadmap">ROADMAP</a>
+    <a id="nav-x" class="hidden" href="#" rel="noopener" target="_blank">X / <span id="nav-x-handle"></span> ↗</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow mono"><span class="dot" aria-hidden="true"></span> PUBLIC ALPHA ON SOLANA</p>
+      <h1 id="hero-title" class="display">
+        <span class="solid">YOUR WALLET</span>
+        <span class="outline">HAS A</span>
+        <span class="solid accent">GHOST.</span>
+      </h1>
+      <p class="hero-sub">It has opinions. Paste a public wallet and GHOST reads your history, shows how you really trade, replays it with better rules, and lets you paper trade. Read-only, always.</p>
+      <div class="cta-row">
+        <a class="btn btn-solid" href="#try">GET ROASTED <span aria-hidden="true">↗</span></a>
+        <a class="btn btn-line" id="follow-btn" href="#roadmap">ROADMAP <span aria-hidden="true">↓</span></a>
+      </div>
+
+      <div class="ca-box" id="ca-box">
+        <div class="ca-head mono"><span id="ca-label">CONTRACT ADDRESS</span><button type="button" class="ca-copy mono hidden" id="ca-copy">COPY</button></div>
+        <p class="ca-value mono" id="ca-value">Not launched. Any CA you see posted is fake until it appears here.</p>
+      </div>
+      <p class="fine mono" id="ca-note">ONLY TRUST A CA SHOWN ON THIS SITE AND THE OFFICIAL X ACCOUNT. IGNORE DMS.</p>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <p class="spec mono">SPECIMEN / GH-001<br />STATE / HAUNTING<br />TEMPERAMENT / JUDGMENTAL</p>
+      <div class="ring">
+        <svg class="orbits" viewBox="0 0 400 400" focusable="false">
+          <ellipse cx="200" cy="200" rx="188" ry="118" fill="none" stroke="#4970a7" stroke-opacity=".6" stroke-width="1.2" transform="rotate(-26 200 200)" />
+          <ellipse cx="200" cy="200" rx="138" ry="182" fill="none" stroke="#ae84ff" stroke-opacity=".45" stroke-width="1.2" transform="rotate(30 200 200)" />
+          <circle cx="352" cy="118" r="6" fill="#64efdb" /><circle cx="62" cy="296" r="4.5" fill="#cd77ff" />
+        </svg>
+        <svg class="hero-ghost" viewBox="0 0 400 400" focusable="false">
+          <defs>
+            <linearGradient id="hg-body" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#73F6E1" /><stop offset=".5" stop-color="#8098ff" /><stop offset="1" stop-color="#cd77ff" />
+            </linearGradient>
+            <radialGradient id="hg-shine" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#ffffff" stop-opacity=".55" /><stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <path d="M200 58c-70 0-104 56-104 118v138l30-20 26 22 24-22 24 22 24-22 26 22 30-20V176c0-62-34-118-104-118Z" fill="url(#hg-body)" />
+          <ellipse cx="162" cy="110" rx="36" ry="18" fill="url(#hg-shine)" transform="rotate(-28 162 110)" />
+          <path d="M146 174q16-12 32 0" fill="none" stroke="#091025" stroke-width="9" stroke-linecap="round" />
+          <g class="ghost-eye"><ellipse cx="240" cy="178" rx="15" ry="22" fill="#091025" /><circle cx="245" cy="170" r="4.5" fill="#bff8ef" /></g>
+          <path d="M172 236q28 20 58 -6" fill="none" stroke="#091025" stroke-width="8" stroke-linecap="round" />
+          <circle class="spark" cx="70" cy="226" r="6" fill="#64efdb" opacity=".8" /><circle class="spark" cx="334" cy="270" r="8" fill="#cd77ff" opacity=".7" /><circle class="spark" cx="318" cy="104" r="4.5" fill="#8098ff" opacity=".8" />
+        </svg>
+      </div>
+      <p class="tag mono">STATE / UNIMPRESSED</p>
+    </div>
+  </section>
+
+  <section class="statement" aria-label="What GHOST is">
+    <p class="reveal display big"><span class="solid">NOT A TRADING BOT.</span><span class="outline">A ROAST WITH RECEIPTS.</span></p>
+  </section>
+
+  <div class="how-head reveal"><p class="label mono">HOW IT WORKS</p><h2 id="how-title" class="display mid"><span class="solid">PASTE. COUNT.</span> <span class="accent">SHARE.</span></h2></div>
+  <section id="how" class="cols" aria-labelledby="how-title">
+    <article><p class="label mono">01 / PASTE</p><h3>PASTE. NOTHING ELSE.</h3><p>A public address is all it takes. No wallet connect, no signing, no sign-up.</p></article>
+    <article><p class="label mono">02 / COUNT</p><h3>COUNTED, THEN ROASTED.</h3><p>GHOST reads the latest page of public transactions and counts swaps, active days and failed transactions. Fixed rules, no made-up numbers.</p></article>
+    <article><p class="label mono">03 / SHARE</p><h3>CARD. NO ADDRESS.</h3><p>Download the card or send a challenge link. Neither one carries your wallet address.</p></article>
+  </section>
+
+  <section class="app" id="try" aria-labelledby="try-title">
+    <div class="reveal section-head">
+      <p class="label mono">THE ROAST / LIVE DEMO</p>
+      <h2 id="try-title" class="display mid"><span class="solid">MEET YOUR</span> <span class="outline">GHOST.</span></h2>
+    </div>
+
+    <div id="invite" class="invite mono hidden" role="status"></div>
+
+    <div class="workspace">
+      <form class="panel" id="ghost-form" novalidate>
+        <div class="panel-head mono"><span>START HERE</span><span class="step-tag" id="step-tag" aria-live="polite">STEP 1 OF 3</span></div>
+        <ol class="steps mono" aria-label="How to use GHOST">
+          <li data-step="1" class="active">TRY THE SAMPLE</li>
+          <li data-step="2">PASTE AN ADDRESS</li>
+          <li data-step="3">SHARE THE CARD</li>
+        </ol>
+
+        <fieldset class="options">
+          <legend class="label mono">MODE</legend>
+          <label class="radio-line"><input type="radio" name="mode" value="demo" checked /> <span><b>Sample roast</b><small>Instant demo with fictional numbers</small></span></label>
+          <label class="radio-line" id="live-option"><input type="radio" name="mode" value="live" id="mode-live" /> <span><b>Real wallet</b><small id="live-note">Reads the latest page of public transactions (up to 100)</small></span></label>
+        </fieldset>
+
+        <div id="address-block">
+          <label class="label mono" for="wallet">SOLANA WALLET ADDRESS</label>
+          <input id="wallet" class="field mono" name="wallet" placeholder="Paste a public address" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off" maxlength="400" aria-describedby="wallet-hint" />
+          <p class="hint" id="wallet-hint">Public address only. Paste a seed phrase or private key and GHOST wipes it and refuses to send it.</p>
+          <label class="check-line" id="deep-option"><input type="checkbox" id="deep" checked /> <span><b>Deep memory</b><small>Read up to 500 transactions and build your trade profile. Takes a few seconds longer.</small></span></label>
+        </div>
+
+        <div id="turnstile" class="turnstile hidden"></div>
+        <button id="analyze" type="submit" class="btn btn-solid wide">SUMMON MY GHOST <span aria-hidden="true">↗</span></button>
+        <div id="error" role="alert" class="error hidden"></div>
+        <details class="privacy">
+          <summary>What happens to an address I paste?</summary>
+          <p>Sample mode never leaves your browser. In live mode the address goes to GHOST's API, which asks Helius for the latest page of public transactions and returns counts. GHOST's code never writes your address or IP to its logs (Cloudflare, which hosts it, keeps standard request logs). Results are cached for 5 minutes under a scrambled key to save credits, and share links and cards never contain the address.</p>
+        </details>
+      </form>
+
+      <div class="panel result" id="result" aria-live="polite" aria-busy="false">
+        <div class="empty">
+          <p class="label mono">AWAITING ANALYSIS_</p>
+          <h3 class="display small"><span class="solid">YOUR GHOST</span> <span class="outline">IS WAITING.</span></h3>
+          <p>Run the sample roast, or paste a public wallet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="check" class="lab-sec" aria-labelledby="check-title">
+    <div class="section-head reveal">
+      <p class="label mono">NEW · GHOST CHECK / COINS</p>
+      <h2 id="check-title" class="display mid"><span class="solid">CHECK A COIN</span> <span class="accent">BEFORE YOU APE.</span></h2>
+      <p class="lab-intro">Paste any Solana token address. GHOST reads the market and the chain, then flags what most people miss: draining liquidity, fake-looking volume, holders packed into a few wallets, and creator permissions left on.</p>
+    </div>
+    <div class="lab-panel" id="check-panel">
+      <form id="check-form" class="paper-row" novalidate>
+        <label class="sr-only" for="check-mint">Token address (CA)</label>
+        <input id="check-mint" class="field mono keep-case" placeholder="Paste a token address (CA)" spellcheck="false" autocomplete="off" maxlength="60" />
+        <button type="submit" class="btn btn-solid" id="check-go">CHECK IT</button>
+      </form>
+      <p class="paper-msg" id="check-msg" role="status"></p>
+      <div class="lab-bar mono"><span id="check-badge" class="chip">SAMPLE</span><span id="check-sub">A made-up coin until you check a real one</span></div>
+      <div aria-live="polite">
+        <div class="check-head" id="check-head"></div>
+        <div class="mem-stats" id="check-stats"></div>
+        <ul class="check-flags" id="check-flags"></ul>
+      </div>
+      <div class="paper-row check-actions"><button type="button" class="btn btn-line hidden" id="check-share">COPY RESULT</button><a class="btn btn-line hidden" id="check-dex" target="_blank" rel="noopener">DEXSCREENER ↗</a></div>
+      <p class="fine mono">Facts from public market data (DexScreener) and the Solana chain. The biggest holder is usually the pool, so it's left out of the holder number. Not a safety rating. Not advice.</p>
+    </div>
+  </section>
+
+  <section id="memory" class="lab-sec" aria-labelledby="memory-title">
+    <div class="section-head reveal">
+      <p class="label mono">THE LAB / 01 · DEEP MEMORY</p>
+      <h2 id="memory-title" class="display mid"><span class="solid">GHOST</span> <span class="outline">REMEMBERS.</span></h2>
+      <p class="lab-intro">Run a real wallet with Deep memory on. GHOST rebuilds every clean swap into buys, sells and closed positions, then tells you how you actually trade.</p>
+    </div>
+    <div class="lab-panel" id="memory-panel" aria-live="polite">
+      <div class="lab-bar mono"><span id="memory-badge" class="chip">SAMPLE</span><span id="memory-coverage">Fictional numbers until you run a wallet</span></div>
+      <div class="mem-stats" id="memory-stats"></div>
+      <div class="mem-grid">
+        <div class="mem-block">
+          <p class="label mono">WHEN YOU TRADE <span class="muted-label">(YOUR TIME)</span></p>
+          <div class="hours" id="memory-hours" role="img" aria-label="Trades by hour of day"></div>
+          <div class="hours-axis mono" aria-hidden="true"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div>
+        </div>
+        <div class="mem-block">
+          <p class="label mono">WHAT GHOST NOTICED</p>
+          <ul class="patterns" id="memory-patterns"></ul>
+          <p class="since mono hidden" id="memory-since"></p>
+        </div>
+      </div>
+      <div class="mem-block">
+        <p class="label mono">RECENT CLOSED POSITIONS</p>
+        <div class="table-wrap"><table class="lab-table" id="memory-closed"><thead><tr><th scope="col" class="mono">TOKEN</th><th scope="col" class="mono">HELD</th><th scope="col" class="mono">RESULT</th><th scope="col" class="mono">FLAGS</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <p class="fine mono" id="memory-method">Average-cost positions from your own balance changes, measured in the coin you paid with. Sells with no buy inside the window are excluded, never guessed.</p>
+    </div>
+  </section>
+
+  <section id="parallel" class="lab-sec" aria-labelledby="parallel-title">
+    <div class="section-head reveal">
+      <p class="label mono">THE LAB / 02 · PARALLEL GHOST</p>
+      <h2 id="parallel-title" class="display mid"><span class="solid">YOU VS.</span> <span class="accent">PARALLEL YOU.</span></h2>
+      <p class="lab-intro">Your parallel ghost made the same trades at the same prices, but followed the rules you switch on. See what your habits cost you.</p>
+    </div>
+    <div class="lab-panel">
+      <div class="lab-bar mono"><span id="parallel-badge" class="chip">SAMPLE</span><span>Replays your closed positions only</span></div>
+      <fieldset class="rules" id="parallel-rules"><legend class="label mono">PARALLEL YOU WOULD…</legend></fieldset>
+      <div id="parallel-results" class="par-results" aria-live="polite"></div>
+      <p class="fine mono">Same execution prices, skipped trades count as zero, capped trades scale down. It assumes the money you didn't use stayed in cash. It's a mirror, not a prediction.</p>
+    </div>
+  </section>
+
+  <section id="lab" class="lab-sec" aria-labelledby="lab-title">
+    <div class="section-head reveal">
+      <p class="label mono">THE LAB / 03 · PAPER LAB</p>
+      <h2 id="lab-title" class="display mid"><span class="solid">PAPER</span> <span class="outline">LAB.</span></h2>
+      <p class="lab-intro">Trade any Solana token with $10,000 of paper money at live prices. Set your rules, lock them for 24 hours, and let GHOST hold you to them.</p>
+    </div>
+    <div class="lab-panel" id="paper">
+      <div class="paper-off hidden" id="paper-off"><p>The Paper Lab needs live prices, which aren't enabled on this site yet.</p></div>
+      <div class="paper-stats" id="paper-stats"></div>
+      <div class="paper-grid">
+        <div class="mem-block">
+          <p class="label mono">TRADE</p>
+          <form id="paper-load" class="paper-row" novalidate>
+            <label class="sr-only" for="paper-mint">Token mint address</label>
+            <input id="paper-mint" class="field mono" placeholder="Paste a token mint (CA)" spellcheck="false" autocomplete="off" maxlength="60" />
+            <button type="submit" class="btn btn-line">LOAD</button>
+          </form>
+          <div class="paper-quick"><button type="button" class="chip-btn mono" id="paper-sol">SOL</button></div>
+          <div class="paper-token hidden" id="paper-token">
+            <div class="paper-token-head"><b id="paper-sym"></b><span class="mono keep-case" id="paper-mint-short"></span><span class="mono" id="paper-price"></span></div>
+            <form id="paper-buy" class="paper-row" novalidate>
+              <label class="sr-only" for="paper-usd">Amount in USD</label>
+              <input id="paper-usd" class="field mono" inputmode="decimal" placeholder="Amount ($)" />
+              <button type="submit" class="btn btn-solid">BUY</button>
+            </form>
+            <div class="paper-sells" id="paper-sells">
+              <button type="button" class="btn btn-line" data-pct="25">SELL 25%</button>
+              <button type="button" class="btn btn-line" data-pct="50">SELL 50%</button>
+              <button type="button" class="btn btn-line" data-pct="100">SELL ALL</button>
+            </div>
+          </div>
+          <p class="paper-msg" id="paper-msg" role="status"></p>
+        </div>
+        <div class="mem-block">
+          <p class="label mono">YOUR RULES</p>
+          <form id="paper-rules" class="rules-form" novalidate>
+            <label>Max per trade <span><input id="rule-maxPct" class="field mono" inputmode="numeric" /> % of equity</span></label>
+            <label>Max losing trades <span><input id="rule-maxLossesPerDay" class="field mono" inputmode="numeric" /> per day</span></label>
+            <label>Cooldown after a loss <span><input id="rule-cooldownMin" class="field mono" inputmode="numeric" /> minutes</span></label>
+            <div class="paper-row"><button type="submit" class="btn btn-line" id="rules-save">SAVE RULES</button><button type="button" class="btn btn-line" id="rules-lock">LOCK FOR 24H</button></div>
+            <p class="fine mono" id="rules-status"></p>
+          </form>
+        </div>
+      </div>
+      <div class="mem-block">
+        <p class="label mono">POSITIONS</p>
+        <div class="table-wrap"><table class="lab-table" id="paper-positions"><thead><tr><th scope="col" class="mono">TOKEN</th><th scope="col" class="mono">VALUE</th><th scope="col" class="mono">COST</th><th scope="col" class="mono">P&amp;L</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div class="mem-block">
+        <p class="label mono">JOURNAL</p>
+        <ul class="journal" id="paper-journal"></ul>
+      </div>
+      <div class="paper-foot"><p class="fine mono">PAPER MONEY ONLY · 1% SLIPPAGE + 0.3% FEE SIMULATED · SAVED IN THIS BROWSER</p><button type="button" class="chip-btn mono" id="paper-reset">RESET LAB</button></div>
+    </div>
+  </section>
+
+  <section id="ghosts" class="ghosts" aria-labelledby="ghosts-title">
+    <div class="reveal section-head">
+      <p class="label mono">THE GHOSTS / 7 KNOWN SPECIMENS</p>
+      <h2 id="ghosts-title" class="display mid"><span class="solid">WHICH ONE</span> <span class="outline">HAUNTS YOU?</span></h2>
+    </div>
+    <div class="table-wrap">
+      <table class="ghost-table">
+        <thead><tr><th scope="col" class="mono">ID</th><th scope="col" class="mono">GHOST</th><th scope="col" class="mono">TRIGGER (FROM THE LATEST PAGE)</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">GH-01</td><td>THE RAPID CLICKER</td><td>5+ swaps in the last 24 hours</td></tr>
+          <tr><td class="mono">GH-02</td><td>THE BURST TRADER</td><td>8+ swaps packed into 1–2 days</td></tr>
+          <tr><td class="mono">GH-03</td><td>THE FAILED-TX COLLECTOR</td><td>5+ failed transactions, 30%+ of the page</td></tr>
+          <tr><td class="mono">GH-04</td><td>THE ON-CHAIN EXPLORER</td><td>Swaps spread across many days</td></tr>
+          <tr><td class="mono">GH-05</td><td>THE QUIET OBSERVER</td><td>Activity, but zero swaps</td></tr>
+          <tr><td class="mono">GH-06</td><td>THE MYSTERY WALLET</td><td>Nothing recent to read</td></tr>
+          <tr><td class="mono">GH-00</td><td>THE CHART CHASER</td><td>The sample ghost. Fictional.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="never" aria-labelledby="never-title">
+    <div class="reveal section-head">
+      <p class="label mono">GROUND RULES</p>
+      <h2 id="never-title" class="display mid"><span class="solid">GHOST WILL</span> <span class="outline">NEVER.</span></h2>
+    </div>
+    <ul class="never-list">
+      <li><span class="mono">01</span> Ask for your seed phrase or private key.</li>
+      <li><span class="mono">02</span> Ask you to connect or sign with a wallet.</li>
+      <li><span class="mono">03</span> Show a win rate or P&amp;L it can't prove.</li>
+      <li><span class="mono">04</span> Put your address on a card or link.</li>
+    </ul>
+  </section>
+
+  <section id="proof" class="lab-sec" aria-labelledby="proof-title">
+    <div class="section-head reveal">
+      <p class="label mono">OPEN BOOK / TRANSPARENCY</p>
+      <h2 id="proof-title" class="display mid"><span class="solid">NOTHING</span> <span class="outline">HIDDEN.</span></h2>
+      <p class="lab-intro">The token, the dev wallet, the code, and where creator fees go. Read live from the chain, so you don't have to take our word for it.</p>
+    </div>
+    <div class="lab-panel" id="proof-panel">
+      <div class="lab-bar mono"><span id="proof-badge" class="chip">AT LAUNCH</span><span>Dev wallet balances update live</span></div>
+      <div class="mem-stats" id="proof-stats"></div>
+      <div class="proof-rows" id="proof-rows"></div>
+      <div class="paper-row"><button type="button" class="btn btn-line hidden" id="proof-roast">ROAST THE DEV WALLET</button></div>
+      <div class="mem-block">
+        <p class="label mono">CREATOR FEES: WHERE THEY GO</p>
+        <div class="table-wrap"><table class="lab-table"><thead><tr><th scope="col" class="mono">DATE</th><th scope="col" class="mono">SPENT ON</th><th scope="col" class="mono">AMOUNT</th></tr></thead><tbody id="proof-ledger"></tbody></table></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap" class="road" aria-labelledby="roadmap-title">
+    <div class="reveal section-head">
+      <p class="label mono">ROADMAP</p>
+      <h2 id="roadmap-title" class="display mid"><span class="solid">WHAT'S LIVE.</span> <span class="outline">WHAT'S NEXT.</span></h2>
+      <p class="road-intro">Shipped features are marked live; beta means it works but is still being tuned. Nothing gets a LIVE badge until it works.</p>
+    </div>
+    <ol class="road-list">
+      <li class="is-live">
+        <span class="mono road-id">R1</span><span class="chip mono">LIVE</span>
+        <div><h3>Roasts and share cards</h3><p>Sample roast, downloadable card, challenge links with no address in them.</p></div>
+        <span class="mono road-date">SHIPPED</span>
+      </li>
+      <li class="is-live">
+        <span class="mono road-id">R2</span><span class="chip mono">LIVE</span>
+        <div><h3>Live wallet roasts</h3><p>Paste any public wallet. GHOST reads its latest transactions and tells you which ghost you are.</p></div>
+        <span class="mono road-date">SHIPPED</span>
+      </li>
+      <li class="is-live">
+        <span class="mono road-id">R3</span><span class="chip mono">BETA</span>
+        <div><h3>Deep memory</h3><p>Up to 500 transactions rebuilt into buys, sells and closed positions, measured in the coin you paid with.</p></div>
+        <span class="mono road-date">SHIPPED</span>
+      </li>
+      <li class="is-live">
+        <span class="mono road-id">R4</span><span class="chip mono">BETA</span>
+        <div><h3>GHOST remembers</h3><p>Your trading profile: when you trade, how long you hold, fast flips, revenge buys. Compared with your last check.</p></div>
+        <span class="mono road-date">SHIPPED</span>
+      </li>
+      <li class="is-live">
+        <span class="mono road-id">R5</span><span class="chip mono">BETA</span>
+        <div><h3>Parallel ghost</h3><p>Replays your real trades with better rules switched on, so you can see what your habits cost.</p></div>
+        <span class="mono road-date">SHIPPED</span>
+      </li>
+      <li class="is-live">
+        <span class="mono road-id">R6</span><span class="chip mono">BETA</span>
+        <div><h3>Paper lab</h3><p>$10,000 of paper money at live prices, with rules you lock for 24 hours and GHOST enforces.</p></div>
+        <span class="mono road-date">SHIPPED</span>
+      </li>
+      <li class="is-live">
+        <span class="mono road-id">R7</span><span class="chip mono">LIVE</span>
+        <div><h3>GHOST check: coins</h3><p>Paste any token: liquidity, volume, holders, mint and freeze authority, age and socials, flagged in plain words.</p></div>
+        <span class="mono road-date">SHIPPED EARLY</span>
+      </li>
+      <li class="is-next">
+        <span class="mono road-id">R7b</span><span class="chip mono">NEXT</span>
+        <div><h3>GHOST alerts</h3><p>Live Telegram alerts on your own wallet: a heads-up the moment you revenge buy, oversize, or flip at 3am, using your own record.</p></div>
+        <span class="mono road-date">TARGET NOV 23</span>
+      </li>
+      <li>
+        <span class="mono road-id">R8</span><span class="chip mono">PLANNED</span>
+        <div><h3>Ghost pages and new cards</h3><p>A page per ghost type with its own link preview, plus new share-card styles.</p></div>
+        <span class="mono road-date">TARGET NOV 30</span>
+      </li>
+      <li>
+        <span class="mono road-id">R9</span><span class="chip mono">PLANNED</span>
+        <div><h3>GHOST coach</h3><p>An AI voice that explains your profile and roasts you, using only numbers GHOST has already verified.</p></div>
+        <span class="mono road-date">TARGET DEC 14</span>
+      </li>
+      <li class="is-later">
+        <span class="mono road-id">R10</span><span class="chip mono">RESEARCH</span>
+        <div><h3>Verified ledger</h3><p>Full-history reconciliation against on-chain balances, before any lifetime P&amp;L is shown.</p></div>
+        <span class="mono road-date">2027</span>
+      </li>
+      <li class="is-later">
+        <span class="mono road-id">R11</span><span class="chip mono">RESEARCH</span>
+        <div><h3>Trade execution</h3><p>Only after a security review, and only if people want it. GHOST never holds your funds.</p></div>
+        <span class="mono road-date">NOT SCHEDULED</span>
+      </li>
+    </ol>
+  </section>
+
+  <footer class="footer">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">GH</span> GHOST</div>
+    <p class="mono">GHOST REMEMBERS. YOU DECIDE.</p>
+    <p class="fine mono" id="footer-note">BETA · DEEP MEMORY READS UP TO 500 TRANSACTIONS · PAPER TRADING ONLY · NOT FINANCIAL ADVICE</p>
+  </footer>
+</main>
+<script src="./config.js?v=20261104a"></script>
+<script src="./core.js?v=20261104a"></script>
+<script src="./lab.js?v=20261104a"></script>
+<script src="./app.js?v=20261104a"></script>
+<script src="./lab-ui.js?v=20261104a"></script>
+<script src="./check-ui.js?v=20261104a"></script>
+</body>
+</html>
