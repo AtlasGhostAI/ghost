@@ -55,6 +55,15 @@ test('bonding-curve coins skip the liquidity check; brand-new and missing pairs 
   assert.equal(none.market, null);
 });
 
+test('dead coin: tiny volume + tiny market cap are flagged, so it is never "no major flags"', () => {
+  const r = analyzeCoin({ pairs: [pair({ dexId: 'pumpfun', marketCap: 2832, liquidity: {}, volume: { h24: 396 }, priceChange: { h24: 2 }, info: {} })],
+    mintInfo: mintInfo(), largest: largest([976e12, 24e12]) }, MINT, NOW);
+  const t = r.flags.map(f => f.level + ':' + f.text).join('\n');
+  assert.match(t, /warn:Barely trading: only \$396 traded/);
+  assert.match(t, /warn:Tiny market cap \(\$2,832\)/);
+  assert.notEqual(r.verdict, 'no-major-flags');
+});
+
 test('ignores pairs for other tokens and sanitizes strings', () => {
   const r = analyzeCoin({ pairs: [pair({ baseToken: { address: 'other', symbol: 'X', name: 'X' } }), pair({ baseToken: { address: MINT, symbol: 'G\u0007<b>', name: 'n' } })] }, MINT, NOW);
   assert.equal(r.market.pairs, 1);

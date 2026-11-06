@@ -92,6 +92,8 @@ export function analyzeCoin(raw, mint, nowMs) {
     else if (num(ch.h24) !== null && num(ch.h24) <= -80) add('red', `Down ${Math.abs(Math.round(num(ch.h24)))}% in 24 hours.`);
     if (vol24 && liq && vol24 / liq >= 100) add('warn', `24h volume is ${Math.round(vol24 / liq)}× its liquidity: much of it may be bots or wash trading.`);
     if (ageH !== null && ageH < 1) add('warn', 'Less than 1 hour old: there’s no track record yet.');
+    if (vol24 !== null && vol24 < 1000) add('warn', `Barely trading: only $${Math.round(vol24).toLocaleString('en-US')} traded in the last 24 hours.`);
+    if (mcap !== null && mcap < 10000) add('warn', `Tiny market cap ($${Math.round(mcap).toLocaleString('en-US')}): one buyer can move the price a lot.`);
   } else {
     add('warn', 'No trading pairs found yet: it may be brand new or not tradable.');
   }

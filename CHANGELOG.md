@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1 — coin check: dead-coin flags
+
+- **Added** warnings for coins that are barely trading (under $1K volume in 24h) and coins with a tiny market cap (under $10K). A dead coin can no longer come back "no major flags".
+
 ## 0.5.0 — coin check + transparency
 
 - **Added** `GET /api/coin?mint=`: DexScreener market data + Solana RPC mint facts → factual flags (liquidity, 6h dumps, volume/liquidity ratio, holder concentration excluding the pool, mint/freeze authority, age, socials). 60s cache, own rate limit, origin-checked.
